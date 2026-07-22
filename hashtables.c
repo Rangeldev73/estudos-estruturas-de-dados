@@ -82,3 +82,29 @@ void destruir_tabela(TabelaHash *tabela) {
     free(tabela->buckets);
     free(tabela);
 }
+
+int remover_chave(TabelaHash *tabela, const char *chave) {
+    unsigned int indice = funcao_hash(chave);
+    
+    Elemento *atual = tabela->buckets[indice];
+    Elemento *anterior = NULL;
+
+    while (atual != NULL) {
+        if (strcmp(atual->chave, chave) == 0) {
+            if (anterior == NULL) {
+                tabela->buckets[indice] = atual->proximo;
+            } else {
+                anterior->proximo = atual->proximo;
+            }
+
+            free(atual->chave);
+            free(atual);
+            return 1; 
+        }
+        
+        anterior = atual;
+        atual = atual->proximo;
+    }
+
+    return 0;
+}
