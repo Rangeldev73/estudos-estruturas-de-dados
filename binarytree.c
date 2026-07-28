@@ -62,3 +62,24 @@ int altura(NoArvore *raiz) {
         return alt_dir + 1;
     }
 }
+
+int main() {
+    NoArvore *raiz = NULL;
+
+    raiz = inserir(raiz, 50);
+    inserir(raiz, 30);
+    inserir(raiz, 70);
+    inserir(raiz, 20);
+    inserir(raiz, 40);
+    inserir(raiz, 80);
+    inserir(raiz, 90);
+
+    printf("--- TESTE DA ARVORE BINARIA DE BUSCA ---\n\n");
+    printf("Maior valor na arvore: %d\n", buscar_maior(raiz)); 
+    printf("Altura da arvore: %d\n", altura(raiz));             
+
+    destruir_arvore(raiz);
+    raiz = NULL;
+
+    return 0;
+}
