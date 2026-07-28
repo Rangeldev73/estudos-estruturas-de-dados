@@ -108,3 +108,37 @@ int remover_chave(TabelaHash *tabela, const char *chave) {
 
     return 0;
 }
+
+int main() {
+    TabelaHash *tabela = criar_tabela();
+
+    printf("--- TESTE DA TABELA HASH ---\n\n");
+
+    inserir(tabela, "Ana", 95);
+    inserir(tabela, "Carlos", 80);
+    inserir(tabela, "Beatriz", 100);
+
+    int nota;
+    if (buscar(tabela, "Carlos", &nota)) {
+        printf("Busca 'Carlos': Encontrado! Nota = %d\n", nota);
+    }
+
+    inserir(tabela, "Carlos", 85);
+    if (buscar(tabela, "Carlos", &nota)) {
+        printf("Apos atualizar 'Carlos': Nova nota = %d\n", nota);
+    }
+
+    printf("\nRemovendo 'Carlos'...\n");
+    if (remover_chave(tabela, "Carlos")) {
+        printf("Chave 'Carlos' removida com sucesso!\n");
+    }
+
+    if (!buscar(tabela, "Carlos", &nota)) {
+        printf("Busca 'Carlos' apos remocao: Nao encontrado (correto!).\n");
+    }
+
+    destruir_tabela(tabela);
+    tabela = NULL;
+
+    return 0;
+}
