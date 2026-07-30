@@ -97,3 +97,55 @@ void simular_atendimento(Fila *preferencial, Fila *convencional){
     destruir_fila(preferencial);
     destruir_fila(convencional);
 }
+
+void imprimir_fila(Fila *f, const char *nome_fila) {
+    printf("%s: ", nome_fila);
+    if (esta_vazia(f)) {
+        printf("[VAZIA]\n");
+        return;
+    }
+    
+    No *atual = f->inicio;
+    while (atual != NULL) {
+        printf("[%d]", atual->dado);
+        if (atual->proximo != NULL) printf(" -> ");
+        atual = atual->proximo;
+    }
+    printf("\n");
+}
+
+int main() {
+    Fila *preferencial = criar_fila();
+    Fila *convencional = criar_fila();
+
+    printf("====================================================\n");
+    printf("     SISTEMA DE GERENCIAMENTO DE FILAS DE BANCO     \n");
+    printf("====================================================\n\n");
+
+    printf("--- 1. Chegada de clientes nas filas ---\n");
+    
+    enqueue(preferencial, 101);
+    enqueue(preferencial, 102);
+    enqueue(preferencial, 103);
+    enqueue(preferencial, 104);
+    
+    enqueue(convencional, 201);
+    enqueue(convencional, 202);
+    enqueue(convencional, 203);
+
+    imprimir_fila(preferencial, "Fila Preferencial");
+    imprimir_fila(convencional, "Fila Convencional");
+
+    printf("\n--- 2. Verificando proximos da fila (peek) ---\n");
+    printf("Proximo Preferencial: %d\n", peek(preferencial));
+    printf("Proximo Convencional: %d\n", peek(convencional));
+
+    printf("\n--- 3. Iniciando Atendimento (Regra: 2 Prefs : 1 Conv) ---\n");
+    simular_atendimento(preferencial, convencional);
+
+    printf("\n====================================================\n");
+    printf("       TODOS OS CLIENTES FORAM ATENDIDOS!           \n");
+    printf("====================================================\n");
+
+    return 0;
+}
