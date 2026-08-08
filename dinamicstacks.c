@@ -80,3 +80,35 @@ int esta_balanceado(const char *expressao){
     destruir_pilha(p);
     return balanceado;
 }
+
+int main() {
+    printf("====================================================\n");
+    printf("  VALIDADOR DE EXPRESSOES MATEMATICAS (PILHA)     \n");
+    printf("====================================================\n\n");
+
+    const char *expressoes[] = {
+        "{[()]}",              
+        "(1 + 2) * [3 / {4}]",  
+        "((())",               
+        "({[}]",               
+        "}",                   
+        "{[()()]}"             
+    };
+
+    int total_testes = sizeof(expressoes) / sizeof(expressoes[0]);
+
+    for (int i = 0; i < total_testes; i++) {
+        printf("Expressao %d: %-25s -> ", i + 1, expressoes[i]);
+        if (esta_balanceado(expressoes[i])) {
+            printf("[BALANCEADA]\n");
+        } else {
+            printf("[DESBALANCEADA]\n");
+        }
+    }
+
+    printf("\n====================================================\n");
+    printf("               TESTES FINALIZADOS!                  \n");
+    printf("====================================================\n");
+
+    return 0;
+}
